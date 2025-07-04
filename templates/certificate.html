@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Certificate</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f7faff;
+            text-align: center;
+            padding: 40px;
+            animation: fadeIn 1s ease;
+        }
+
+        h2 {
+            font-size: 28px;
+            color: #2b2b5e;
+            margin-bottom: 30px;
+            animation: slideDown 1.2s ease-out;
+        }
+
+        img {
+            width: 80%;
+            border: 4px solid #6c63ff;
+            border-radius: 16px;
+            box-shadow: 0 0 20px rgba(108, 99, 255, 0.2);
+            animation: zoomIn 1.4s ease;
+        }
+
+        a {
+            display: inline-block;
+            margin: 20px 15px;
+            padding: 12px 24px;
+            text-decoration: none;
+            background: #6c63ff;
+            color: white;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        a:hover {
+            background: #5848d3;
+            transform: scale(1.05);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <h2>🎉 Your Certificate is Ready!</h2>
+
+    <img src="{{ url_for('static', filename='../generated_certificates/' + png_file) }}" alt="Certificate">
+
+    <br><br>
+    <a href="{{ url_for('download_png', filename=png_file) }}">📥 Download as PNG</a>
+    <a href="{{ url_for('download_pdf', filename=pdf_file) }}">📄 Download as PDF</a>
+
+    <!-- 🎊 Confetti Effect (JS-only) -->
+    <script>
+        // Simple confetti effect using emojis
+        const emojis = ['🎊','🎉','✨','💫'];
+        for (let i = 0; i < 50; i++) {
+            const emoji = document.createElement('div');
+            emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+            emoji.style.position = 'fixed';
+            emoji.style.left = Math.random() * 100 + 'vw';
+            emoji.style.top = '-5vh';
+            emoji.style.fontSize = '24px';
+            emoji.style.animation = `fall ${Math.random() * 3 + 2}s linear ${Math.random()}s infinite`;
+            document.body.appendChild(emoji);
+        }
+
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes fall {
+                to {
+                    transform: translateY(110vh) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+
+</body>
+</html>
